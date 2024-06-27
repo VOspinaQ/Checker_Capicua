@@ -1,22 +1,33 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
 function App() {
+  const [inputValue, setInputValue] = useState('');
+  const [isCapicua, setIsCapicua] = useState(null);
+
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  const checkCapicua = () => {
+    const reversed = inputValue.split('').reverse().join('');
+    setIsCapicua(inputValue === reversed);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Capicúa Checker</h1>
+        <input
+          type="text"
+          value={inputValue}
+          onChange={handleInputChange}
+          placeholder="Ingrese un texto o un número"
+        />
+        <button onClick={checkCapicua}>Check</button>
+        {isCapicua !== null && (
+          <p>{isCapicua ? 'It is a capicúa!' : 'It is not a capicúa!'}</p>
+        )}
       </header>
     </div>
   );
